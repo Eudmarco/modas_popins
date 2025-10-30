@@ -2,22 +2,85 @@
 import React from 'react';
 import { type Product } from './types';
 
-export const PRODUCTS: Product[] = [
-  { id: 1, rawFilename: 'produto-1.avif', name: 'Conjunto Blusa e Pantacourt', code: '2406 / 16861', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202406%20Pantacur%20REF%2016861.avif' },
-  { id: 2, rawFilename: 'produto-2.avif', name: 'Conjunto Blusa e Shorts', code: '2419 / 1853', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202419%20Shorts%20REF%201853.avif' },
-  { id: 3, rawFilename: 'produto-3.avif', name: 'Look Blusa e Pantacourt', code: '2450 / 2375', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202450%20Pantacur%20REF%202375.avif' },
-  { id: 4, rawFilename: 'produto-4.avif', name: 'Look Blusa e Bermuda', code: '2510 / 2337', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202510%20Bermuda%20REF%202337.avif' },
-  { id: 5, rawFilename: 'produto-5.avif', name: 'Conjunto Estampado', code: '2546 / 12271', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202546%20Bermuda%20REF%2012271.avif' },
-  { id: 6, rawFilename: 'produto-6.avif', name: 'Blusa com Bermuda', code: '2550 / 2345', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202550%20Bermuda%20REF%202345.avif' },
-  { id: 7, rawFilename: 'produto-7.avif', name: 'Blusa Floral com Bermuda', code: '2551 / 2337', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202551%20Bermuda%20REF%202337.avif' },
-  { id: 8, rawFilename: 'produto-8.avif', name: 'Conjunto Moderno', code: '2539 / 13731', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa-REF-2539-Bermuda-REF-13731_1_.avif' },
-  { id: 9, rawFilename: 'produto-9.avif', name: 'Look Casual Chic', code: '2546 / 12271', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa-REF-2546-Bermuda-REF-12271.avif' },
-  { id: 10, rawFilename: 'produto-10.avif', name: 'Macacão Estampado', code: '2547', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Macacao%20REF%202547.avif' },
-  { id: 11, rawFilename: 'produto-11.avif', name: 'Vestido Floral', code: '2541', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido%20REF%202541.avif' },
-  { id: 12, rawFilename: 'produto-12.avif', name: 'Vestido Longo', code: '2552', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido%20REF%202552.avif' },
-  { id: 13, rawFilename: 'produto-13.avif', name: 'Vestido Estampado', code: '14362', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido-REF-14362_1_.avif' },
-  { id: 14, rawFilename: 'produto-14.avif', name: 'Vestido Elegante', code: '2552', imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido-REF-2552_1_.avif' },
+// Base product data containing only the unique information
+const productSources = [
+  { id: 1, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202406%20Pantacur%20REF%2016861.avif' },
+  { id: 2, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202419%20Shorts%20REF%201853.avif' },
+  { id: 3, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202450%20Pantacur%20REF%202375.avif' },
+  { id: 4, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202510%20Bermuda%20REF%202337.avif' },
+  { id: 5, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202546%20Bermuda%20REF%2012271.avif' },
+  { id: 6, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202550%20Bermuda%20REF%202345.avif' },
+  { id: 7, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa%20REF%202551%20Bermuda%20REF%202337.avif' },
+  { id: 8, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa-REF-2539-Bermuda-REF-13731_1_.avif' },
+  { id: 9, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Blusa-REF-2546-Bermuda-REF-12271.avif' },
+  { id: 10, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Macacao%20REF%202547.avif' },
+  { id: 11, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido%20REF%202541.avif' },
+  { id: 12, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido%20REF%202552.avif' },
+  { id: 13, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido-REF-14362_1_.avif' },
+  { id: 14, imageUrl: 'https://kjunynajewbtxqojxbok.supabase.co/storage/v1/object/public/MPopins/Vestido-REF-2552_1_.avif' },
 ];
+
+const STANDARD_SIZES = [44, 46, 48, 50, 52, 54];
+
+/**
+ * Processes a product image URL to extract a structured name and code.
+ * @param url The image URL.
+ * @returns An object containing the formatted name and code.
+ */
+function processProductDataFromUrl(url: string): { name: string; code: string; rawFilename: string } {
+    const filenameWithExt = url.substring(url.lastIndexOf('/') + 1);
+    const decodedFilename = decodeURIComponent(filenameWithExt);
+    const filename = decodedFilename.substring(0, decodedFilename.lastIndexOf('.'));
+
+    const cleanedFilename = filename.replace(/_/g, ' ').replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+
+    const regex = /(\D+?)\s*REF\s*(\d+)/gi;
+    const matches = [...cleanedFilename.matchAll(regex)];
+
+    if (matches.length === 0) {
+        return { name: filename.replace(/_/g, ' ').replace(/-/g, ' '), code: 'N/A', rawFilename: decodedFilename };
+    }
+
+    const names = matches.map(match => {
+        let name = match[1].trim();
+        if (name.toLowerCase() === 'pantacur') name = 'Pantacourt';
+        if (name.toLowerCase() === 'shorts') name = 'Shorts';
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    });
+    const codes = matches.map(match => match[2].trim());
+
+    return {
+        name: names.join(' e '),
+        code: codes.join(' e '),
+        rawFilename: decodedFilename,
+    };
+}
+
+
+// Process all products from the source list
+const allProducts: Product[] = productSources.map(p => {
+  const { name, code, rawFilename } = processProductDataFromUrl(p.imageUrl);
+  return {
+    id: p.id,
+    imageUrl: p.imageUrl,
+    name,
+    code,
+    rawFilename,
+    sizes: STANDARD_SIZES,
+  };
+});
+
+// Use a Map to filter out duplicates based on the 'code' property, which is derived from the filename.
+// This ensures that each unique product appears only once.
+const uniqueProductsMap = new Map<string, Product>();
+allProducts.forEach(product => {
+    if (!uniqueProductsMap.has(product.code)) {
+        uniqueProductsMap.set(product.code, product);
+    }
+});
+
+// Generate the final, unique products array by taking the values from the Map
+export const PRODUCTS: Product[] = Array.from(uniqueProductsMap.values());
 
 export const WHATSAPP_NUMBER_MATRIZ = '5511972469393';
 export const WHATSAPP_NUMBER_FILIAL = '5511950539393';
@@ -25,19 +88,19 @@ export const WHATSAPP_NUMBER_FILIAL = '5511950539393';
 export const LEGAL_CONTENT = {
   privacy: {
     title: 'Política de Privacidade',
-    content: `A sua privacidade é importante para nós. É política do Modas PoPins respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site Modas PoPins, e outros sites que possuímos e operamos.\nTrabalhamos com base na Lei de Proteção de Dados (13.709/2018), que traz garantias explícitas de proteção de dados pessoais, com direitos e deveres para controladores e operadores, no âmbito público e privado.`
+    content: `A sua privacidade é fundamental para a Modas PoPins. Esta Política de Privacidade descreve como coletamos, usamos, processamos e protegemos suas informações pessoais em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).\n\n1. Coleta de Informações: Coletamos informações que você nos fornece diretamente, como nome e contato ao se cadastrar para ser revendedora, e informações coletadas automaticamente, como dados de navegação através de cookies, para melhorar sua experiência em nosso site.\n\n2. Uso das Informações: Utilizamos suas informações para: processar seu cadastro de revendedora, comunicar novidades e promoções, personalizar sua experiência de navegação, e para fins de análise e melhoria dos nossos serviços.\n\n3. Compartilhamento de Dados: Não compartilhamos suas informações pessoais com terceiros, exceto quando necessário para a prestação de nossos serviços (ex: plataformas de pagamento) ou por obrigação legal.\n\n4. Seus Direitos: Você tem o direito de acessar, corrigir, atualizar ou solicitar a exclusão de suas informações pessoais. Para exercer esses direitos, entre em contato conosco através dos nossos canais de atendimento.\n\n5. Segurança: Adotamos medidas técnicas e organizacionais para proteger seus dados contra acesso não autorizado, alteração, divulgação ou destruição.`
   },
   terms: {
     title: 'Termos de Uso',
-    content: `Estes termos e condições descrevem as regras e regulamentos para o uso do website da Modas PoPins.\nAo acessar este site, presumimos que você aceita estes termos e condições. Não continue a usar o Modas PoPins se não concordar com todos os termos e condições declarados nesta página.`
+    content: `Bem-vinda à Modas PoPins! Ao acessar e utilizar nosso site, você concorda em cumprir e estar vinculado aos seguintes Termos e Condições de Uso.\n\n1. Propriedade Intelectual: Todo o conteúdo presente neste site, incluindo textos, imagens, logotipos e design, é de propriedade exclusiva da Modas PoPins e protegido por leis de direitos autorais. A reprodução não autorizada de qualquer material é estritamente proibida.\n\n2. Uso do Site: Você concorda em usar este site apenas para fins legais e de maneira que não infrinja os direitos, restrinja ou iniba o uso e gozo do site por qualquer terceiro.\n\n3. Informações do Produto: Esforçamo-nos para garantir que as informações, descrições e imagens dos produtos sejam as mais precisas possível. No entanto, não garantimos que as descrições sejam totalmente livres de erros. As cores podem variar dependendo do monitor.\n\n4. Links para Terceiros: Nosso site pode conter links para sites de terceiros que não são operados por nós. Não temos controle e não assumimos responsabilidade pelo conteúdo ou práticas de privacidade desses sites.\n\n5. Limitação de Responsabilidade: A Modas PoPins não será responsável por quaisquer danos diretos ou indiretos resultantes do uso ou da incapacidade de usar este site.\n\n6. Alterações nos Termos: Reservamo-nos o direito de modificar estes termos a qualquer momento. As alterações entrarão em vigor imediatamente após a publicação no site.`
   },
   cookies: {
     title: 'Política de Cookies',
-    content: `Como é prática comum em quase todos os sites profissionais, este site usa cookies, que são pequenos arquivos baixados no seu computador, para melhorar sua experiência. Esta página descreve quais informações eles coletam, como as usamos e por que às vezes precisamos armazenar esses cookies.`
+    content: `Nossa Política de Cookies explica como a Modas PoPins utiliza cookies e tecnologias similares para reconhecê-la quando você visita nosso site.\n\n1. O que são Cookies?: Cookies são pequenos arquivos de texto que são colocados no seu dispositivo para coletar informações padrão de internet e comportamento do visitante.\n\n2. Como usamos Cookies?: Usamos cookies para melhorar sua experiência de navegação, entender como você utiliza nosso site e personalizar o conteúdo. Utilizamos os seguintes tipos:\n- Cookies Essenciais: Necessários para o funcionamento básico do site.\n- Cookies de Desempenho e Análise: Ajudam-nos a entender como os visitantes interagem com o site, coletando informações anonimamente.\n- Cookies de Funcionalidade: Permitem que o site se lembre das escolhas que você fez (como idioma) para fornecer uma experiência mais pessoal.\n\n3. Controle de Cookies: Você pode controlar e/ou deletar cookies como desejar. A maioria dos navegadores permite que você recuse ou aceite cookies. No entanto, a desativação de cookies pode afetar a funcionalidade do nosso site.\n\n4. Consentimento: Ao continuar a navegar em nosso site, você concorda com o uso de cookies conforme descrito nesta política. Você pode alterar suas preferências a qualquer momento.`
   },
   lgpd: {
     title: 'Conformidade LGPD',
-    content: `A Modas PoPins está em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD), Lei nº 13.709/2018. Estamos comprometidos em proteger os dados pessoais de nossos clientes e usuários, garantindo que eles sejam coletados, processados e armazenados de forma segura e transparente.`
+    content: `A Modas PoPins está em total conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD), Lei nº 13.709/2018, e reafirma seu compromisso com a proteção e a privacidade dos dados de seus clientes e usuários.\n\n1. Finalidade do Tratamento: Seus dados são coletados e tratados com finalidades específicas e legítimas, informadas a você no momento da coleta, como viabilizar o cadastro de revendedoras e o contato comercial.\n\n2. Direitos do Titular: A LGPD garante a você, como titular dos dados, diversos direitos, incluindo:\n- Confirmação da existência de tratamento;\n- Acesso aos seus dados;\n- Correção de dados incompletos, inexatos ou desatualizados;\n- Anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade;\n- Portabilidade dos dados a outro fornecedor;\n- Eliminação dos dados pessoais tratados com o seu consentimento;\n- Informação sobre o compartilhamento de seus dados.\n\n3. Encarregado de Proteção de Dados (DPO): Para exercer seus direitos ou para qualquer esclarecimento sobre o tratamento de seus dados pessoais, entre em contato conosco pelos canais oficiais de atendimento. Estamos à disposição para atender às suas solicitações de forma transparente e ágil.`
   },
 };
 

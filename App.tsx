@@ -40,7 +40,6 @@ const App: React.FC = () => {
   }, [activeLegalModal]);
 
   useEffect(() => {
-    // Fisher-Yates shuffle algorithm to randomize products on page load
     const shuffleArray = (array: Product[]) => {
       let currentIndex = array.length,  randomIndex;
       while (currentIndex !== 0) {
@@ -49,9 +48,33 @@ const App: React.FC = () => {
         [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
       }
       return array;
-    }
-    // Create a copy before shuffling to not mutate the original constant
-    setShuffledProducts(shuffleArray([...PRODUCTS]));
+    };
+
+    const validateAndSetProducts = async () => {
+      // 1. Initial filter for non-empty URLs
+      const productsWithUrl = PRODUCTS.filter(p => p.imageUrl && p.imageUrl.trim() !== '');
+
+      // 2. Asynchronously check if each image can be loaded
+      const imagePromises = productsWithUrl.map(product => {
+        return new Promise<Product | null>((resolve) => {
+          const img = new Image();
+          img.src = product.imageUrl;
+          img.onload = () => resolve(product); // Image loaded successfully
+          img.onerror = () => resolve(null);   // Image failed to load or is corrupted
+        });
+      });
+
+      // 3. Wait for all checks to complete
+      const results = await Promise.all(imagePromises);
+      
+      // 4. Filter out the products with corrupted/invalid images
+      const validProducts = results.filter((p): p is Product => p !== null);
+
+      // 5. Shuffle and set the state
+      setShuffledProducts(shuffleArray([...validProducts]));
+    };
+
+    validateAndSetProducts();
   }, []); // Empty dependency array ensures this runs only once on mount
   
   const handleLegalLinkClick = (topic: LegalTopic) => {

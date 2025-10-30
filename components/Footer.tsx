@@ -74,6 +74,18 @@ const Footer: React.FC<FooterProps> = ({ onLegalLinkClick }) => {
             ))}
           </div>
         </div>
+
+        {/* Developer Credit */}
+        <div className="text-center pt-6">
+            <a 
+                href="https://esgrmkt.com.br" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+            >
+                Desenvolvido por ESGR Digital Solutions
+            </a>
+        </div>
       </div>
     </footer>
   );
