@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
     return {
       // *** CONFIGURAÇÃO CRÍTICA PARA DEPLOY EM DOMÍNIO PERSONALIZADO ***
       // Define a URL base para os assets, que deve ser a raiz ('/') para 
-      // um domínio como modaspopins.com.br
+      // um domínio como modaspopins.com.br ou qualquer domínio raiz.
       base: '/', 
       // ------------------------------------------------------------------
       
